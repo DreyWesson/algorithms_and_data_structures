@@ -1,31 +1,13 @@
-// Implement a swap helper function that we will use in both BS and SS
-function swap(arr, i, j) {
-  let temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
-}
+function isPrime(num) {
+  //Time complexity O(sqrt(N)): if sqrt(N) is !primeNum then (N !== primeNum )
+  //so the loop only has to test until the sqrt(N)
+  let sqrtnum = Math.sqrt(num) | 0;
+  let prime = num != 1;
 
-//bubbleSort works by having sorted data accumulate at end of array
-function bubbleSort(arr) {
-  // Time complexity O(N²)
-  // Space complexity O(1)
-  for (let i = 0; i < arr.length; i++)
-    for (let j = 0; j < arr.length - i; j++)
-      arr[j] > arr[j + 1] && swap(arr, j, j + 1);
-
-  return arr;
-}
-
-//selectionSort works by having sorted data accumulate at start of array
-function selectionSort(arr) {
-  // Time complexity O(N²)
-  for (let i = 0; i < arr.length; i++) {
-    let swapIdx = i;
-    for (let j = i + 1; j < arr.length; j++)
-      arr[j] < arr[swapIdx] && (swapIdx = j);
-    swap(arr, i, swapIdx);
+  for (let i = 2; i < sqrtnum + 1; i++) {
+    num % i == 0 && (prime = false);
   }
-  return arr;
+  return prime;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -54,23 +36,11 @@ function selectionSort(arr) {
 mocha.setup("bdd");
 const { assert } = chai;
 
-describe("swap()", () => {
-  it("swaps values in an array when provided with 2 indexes.", () => {
-    const arr = [13, 2, 4];
-    swap(arr, 0, 1);
-    assert.deepEqual(arr, [2, 13, 4]);
-  });
-});
-
-describe("Bubble Sort", () => {
-  it("sorts an array", () => {
-    assert.deepEqual(bubbleSort([5, 1, 3, 7, 6, 2, 4]), [1, 2, 3, 4, 5, 6, 7]);
-  });
-});
-
-describe("Selection Sort", () => {
-  it("sorts an array", () => {
-    assert.deepEqual(selectionSort([5, 1, 3, 2, 4]), [1, 2, 3, 4, 5]);
+describe("isPrime()", () => {
+  it("checks if a num is prime number or not", () => {
+    assert.equal(isPrime(7), true);
+    assert.equal(isPrime(4), false);
+    assert.equal(isPrime(97), true);
   });
 });
 

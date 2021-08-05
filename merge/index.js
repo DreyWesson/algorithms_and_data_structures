@@ -5,7 +5,36 @@
 // merge([1,5], [4,6,7]) === [1,4,5,6,7]
 // merge([4,6,7], [1,5]) === [1,4,5,6,7]
 
-function merge(sortedArr1, sortedArr2) {}
+function merge(sortedArr1, sortedArr2) {
+  // Time complexity O(N+M)
+  // Space complexity O(N+M)
+  let pointerOne = 0,
+    pointerTwo = 0,
+    output = [];
+  function outputHandler(arr, pointer = "pointerOne") {
+    if (pointer === "pointerOne") {
+      output.push(arr[pointerOne]);
+      pointerOne++;
+    } else {
+      output.push(arr[pointerTwo]);
+      pointerTwo++;
+    }
+  }
+
+  while (pointerOne < sortedArr1.length && pointerTwo < sortedArr2.length) {
+    if (sortedArr1[pointerOne] < sortedArr2[pointerTwo])
+      outputHandler(sortedArr1);
+    else outputHandler(sortedArr2, "pointerTwo");
+  }
+
+  // Handle cases where the two arrays are not of equal length
+  while (pointerOne < sortedArr1.length) outputHandler(sortedArr1);
+
+  while (pointerTwo < sortedArr2.length)
+    outputHandler(sortedArr2, "pointerTwo");
+
+  return output;
+}
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \

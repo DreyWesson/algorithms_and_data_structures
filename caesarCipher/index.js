@@ -8,28 +8,44 @@
 // caeserCipher("abcd", 100) === "wxyz";
 // caeserCipher("gurer ner 9 qbtf!", 13) === "there are 9 dogs!"
 
-function caesarCipher(str, shift) {
-// Time complexity: O(N)
-// Space complexity: O(N)
+function caesarCipher(str, shift, decrypt = false) {
+  // Time complexity: O(N)
+  // Space complexity: O(N)
 
-  let alphabets = ["a" ,"b" ,"c" ,"d" ,"e" ,"f" ,"g" ,"h" ,"i" ,"j" ,"k" ,"l" ,"m" ,"n" ,"o" ,"p" ,"q" ,"r" ,"s" ,"t" ,"u" ,"v" ,"w" ,"x" ,"y" ,"z"]
-  let decoded = '';
+  // Encrypts or decrypts a given string using the Caesar cipher.
+  // Use the modulo (%) operator and the ternary operator (?)
+  // to calculate the correct encryption/decryption key.
+  // Use the spread operator (...) and Array.prototype.map() to iterate
+  // over the letters of the given string.
+  // Use String.prototype.charCodeAt() and String.fromCharCode() to convert each letter appropriately, ignoring special characters, spaces etc.
+  // Use Array.prototype.join() to combine all the letters into a string.
+  // Pass true to the last parameter, decrypt, to decrypt an encrypted string.
+  const s = decrypt ? (26 - shift) % 26 : shift;
+  const n = s > 0 ? s : 26 + (s % 26);
+  return [...str]
+    .map((l, i) => {
+      const c = str.charCodeAt(i);
+      if (c >= 65 && c <= 90)
+        return String.fromCharCode(((c - 65 + n) % 26) + 65);
+      if (c >= 97 && c <= 122)
+        return String.fromCharCode(((c - 97 + n) % 26) + 97);
+      return l;
+    })
+    .join("");
 
-  for (let i = 0; i < str.length; i++) {
-    const char = str[i],
-      idx = alphabets.indexOf(char);
-
-    if (idx === -1) {
-      decoded += char;
-      continue;
-    }
-
-    const encodedIdx = (idx + shift) % 26;
-
-    decoded += alphabets[encodedIdx]
-  }
-
-  return decoded 
+  // let alphabets = ["a" ,"b" ,"c" ,"d" ,"e" ,"f" ,"g" ,"h" ,"i" ,"j" ,"k" ,"l" ,"m" ,"n" ,"o" ,"p" ,"q" ,"r" ,"s" ,"t" ,"u" ,"v" ,"w" ,"x" ,"y" ,"z"]
+  // let decoded = '';
+  // for (let i = 0; i < str.length; i++) {
+  //   const char = str[i],
+  //     idx = alphabets.indexOf(char);
+  //   if (idx === -1) {
+  //     decoded += char;
+  //     continue;
+  //   }
+  //   const encodedIdx = (idx + shift) % 26;
+  //   decoded += alphabets[encodedIdx]
+  // }
+  // return decoded
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______

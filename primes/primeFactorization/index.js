@@ -1,32 +1,24 @@
-// Implement a swap helper function that we will use in both BS and SS
-function swap(arr, i, j) {
-  let temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
-}
-
-//bubbleSort works by having sorted data accumulate at end of array
-function bubbleSort(arr) {
-  // Time complexity O(N²)
-  // Space complexity O(1)
-  for (let i = 0; i < arr.length; i++)
-    for (let j = 0; j < arr.length - i; j++)
-      arr[j] > arr[j + 1] && swap(arr, j, j + 1);
-
-  return arr;
-}
-
-//selectionSort works by having sorted data accumulate at start of array
-function selectionSort(arr) {
-  // Time complexity O(N²)
-  for (let i = 0; i < arr.length; i++) {
-    let swapIdx = i;
-    for (let j = i + 1; j < arr.length; j++)
-      arr[j] < arr[swapIdx] && (swapIdx = j);
-    swap(arr, i, swapIdx);
+function primeFactor(n) {
+  //Time complexity O(sqrt(N)): if sqrt(N) is !primeNum then (N !== primeNum )
+  //so the loop only has to test until the sqrt(N)
+  while (n % 2 == 0) {
+    // print the # of 2s that divided n
+    console.log(2);
+    n = n / 2;
   }
-  return arr;
+  // n must be odd @ this point. so we can skip one element (i = i + 2)
+  for (let i = 3; i * i <= n; i = i + 2) {
+    // while i divides n, print i and divide n
+    while (n % i == 0) {
+      console.log(i);
+      n = n / i;
+    }
+  }
+  // this handles when n is a prime number greater than 2
+  n > 2 && console.log(n);
 }
+
+primeFactor(20);
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
@@ -51,27 +43,15 @@ function selectionSort(arr) {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
-const { assert } = chai;
+// mocha.setup("bdd");
+// const { assert } = chai;
 
-describe("swap()", () => {
-  it("swaps values in an array when provided with 2 indexes.", () => {
-    const arr = [13, 2, 4];
-    swap(arr, 0, 1);
-    assert.deepEqual(arr, [2, 13, 4]);
-  });
-});
+// describe("isPrime()", () => {
+//   it("checks if a num is prime number or not", () => {
+//     assert.equal(primeFactor(7), true);
+//     assert.equal(primeFactor(4), false);
+//     assert.equal(primeFactor(97), true);
+//   });
+// });
 
-describe("Bubble Sort", () => {
-  it("sorts an array", () => {
-    assert.deepEqual(bubbleSort([5, 1, 3, 7, 6, 2, 4]), [1, 2, 3, 4, 5, 6, 7]);
-  });
-});
-
-describe("Selection Sort", () => {
-  it("sorts an array", () => {
-    assert.deepEqual(selectionSort([5, 1, 3, 2, 4]), [1, 2, 3, 4, 5]);
-  });
-});
-
-mocha.run();
+// mocha.run();
