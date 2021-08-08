@@ -1,41 +1,21 @@
-// Directions
-// Return a string with the order of characters reversed
-// --- Examples
-//   reverse('abcd') === 'dcba'
-//   reverse('Hello!') === '!olleH'
-
-function reverse(str) {
-  // TIME COMPLEXITY: O(N). bcos we went over every char of str
-  // SPACE COMPLEXITY: O(N). bcos length of str remains d same
-
-  // create a hash for previous value
-  // loop through and add current value in front of previous hash
-  let previous = "";
-  for (let i = 0; i < str.length; i++) previous = str[i] + previous;
-  return previous;
-
-  // using REDUCE method
-  //   return str.split("").reduce((output, char) => char + output);
-
-  // using REVERSE method
-  // return str.split("").reverse().join("")
-
-  // Using FOR LOOP meth0d
-  // let newStr =[]
-  // for (let i = str.length-1; i >= 0; i--) {
-  // 	newStr.push(str[i])
-  // }
-  // return newStr.join('')
-
-  // no IN-BuILT method
-  // let prev = ''
-  // for (let i = 0; i < str.length; i++) {
-  // 	const next = str[i];
-  // 	 prev = next + prev
-
-  // }
-  // return prev
+// Given an array of words ['cat', 'dog', 'tac', 'god', 'act'],
+// return an array with all the anagrams grouped together.
+// Makes sure the anagrams are unique
+var arr = ["cat", "dog", "tac", "god", "act"];
+function allAnagrams(arr) {
+  var anagrams = {};
+  arr.forEach(function (str) {
+    var recurse = function (ana, str) {
+      if (str === "") anagrams[ana] = 1;
+      for (var i = 0; i < str.length; i++)
+        recurse(ana + str[i], str.slice(0, i) + str.slice(i + 1));
+    };
+    recurse("", str);
+  });
+  return Object.keys(anagrams);
 }
+
+console.log(allAnagrams(arr));
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
@@ -63,10 +43,25 @@ function reverse(str) {
 mocha.setup("bdd");
 const { assert } = chai;
 
-describe("String Reversal", () => {
-  it("reverse() correctly reverses string", () => {
-    assert.equal(reverse("ffaa"), "aaff");
-    assert.equal(reverse("  aaff"), "ffaa  ");
+describe("Anagrams", () => {
+  it("works if case sensitivity and non word characters NOT taken into account", () => {
+    assert.equal(anagrams("earth", "heart"), true);
+
+    assert.equal(anagrams("love", "meow"), false);
+    assert.equal(anagrams("lol", "lolc"), false);
+  });
+  it("is case insensitive. 'HEART' and 'earth' should return true", () => {
+    assert.equal(anagrams("HEART", "earth"), true);
+    assert.equal(anagrams("heart", "EARTH"), true);
+
+    assert.equal(anagrams("love", "meow"), false);
+    assert.equal(anagrams("lol", "lolc"), false);
+  });
+  it("only matches word characters. 'heart!'' and '' earth' should return true", () => {
+    assert.equal(anagrams("heart!", " earth"), true);
+
+    assert.equal(anagrams("love", "meow"), false);
+    assert.equal(anagrams("lol", "lolc"), false);
   });
 });
 

@@ -7,17 +7,27 @@
 //   reverseInt(-13) === -31
 //   reverseInt(-100) === -1
 
-function reverseInt(n) {
-	// TIME COMPLEXITY: O(logN). bcos if d input increase by one digit or 
+function reverseInt(num) {
+  // TIME COMPLEXITY: O(logN). bcos if d input increase by one digit or
   // a factor of 10 we only have to do one more operation
-  let reversed= n
-    .toString()
-    .split('')
-    .reduce((output,char)=> (char+output))
 
-  return Math.sign(n) * parseInt(reversed)
+  // convert number to string
+  // create a hash for previous value
+  // loop over and reverse the string
+  // add the sign by using Math.sign()
+  num = num.toString();
+  let hash = "";
+  for (let i = 0; i < num.length; i++) hash = num[i] + hash;
+  return Math.sign(num) * parseInt(hash);
+
+  // let reversed = num
+  //   .toString()
+  //   .split("")
+  //   .reduce((output, char) => char + output);
+  // return Math.sign(n) * parseInt(reversed);
 }
 
+// function revint(num) {}
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/

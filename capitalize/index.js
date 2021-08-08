@@ -6,11 +6,12 @@
 //   capitalize('sHoRt AnD sToUt') --> 'Short And Stout'
 
 function capitalize(str) {
-  let splitStr = str.toLowerCase().split(' ');
-  for (let i = 0; i < splitStr.length; i++) 
-      // transformedWord = change first letter to uppercase + add other chars of the word
-      splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-  return splitStr.join(' '); 
+  let splitStr = str.toLowerCase().split(" ");
+  for (let i = 0; i < splitStr.length; i++)
+    // transformedWord = change first letter to uppercase + add other chars of the word
+    splitStr[i] =
+      splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  return splitStr.join(" ");
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______

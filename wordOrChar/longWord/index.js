@@ -1,24 +1,22 @@
 function longestWord(str) {
-	// TIME COMPLEXITY: O(N). bcos we went over every char of str
-	// SPACE COMPLEXITY: O(1). bcos length of str remains d same
+  // TIME COMPLEXITY: O(N). bcos we went over every char of str
+  // SPACE COMPLEXITY: O(1). bcos length of str remains d same
 
+  let max = 0,
+    longestWord = "";
 
-	let max = 0, longestWord = "";
-
-	str.split(" ").forEach((word) => {
-		// pick a char and memoize the # of occurrences
-		// only call it again when another char exceeds its # occurrence
-		// console.log(word.length);
-		if (word.length > max) {
-		max = word.length;
-		longestWord = word;
-		}
-	});
-	// console.log({ longestWord, length: max })
-	return  longestWord
+  str.split(" ").forEach((word) => {
+    // pick a char and memoize the # of occurrences
+    // only call it again when another char exceeds its # occurrence
+    // console.log(word.length);
+    if (word.length > max) {
+      max = word.length;
+      longestWord = word;
+    }
+  });
+  // console.log({ longestWord, length: max })
+  return longestWord;
 }
-
-
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \

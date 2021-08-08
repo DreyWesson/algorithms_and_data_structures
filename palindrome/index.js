@@ -5,13 +5,24 @@
 //   palindrome("Madam") === true
 //   palindrome("love") === false
 
+// function palindrome(str) {
+
+// }
+
 function palindrome(str) {
   // TIME COMPLEXITY: O(N). bcos we went over every char of str
-	// SPACE COMPLEXITY: O(N). bcos length of str remains d same
+  // SPACE COMPLEXITY: O(N). bcos length of str remains d same
 
-  str = str.toLowerCase()
-  reverse = str.split("").reduce((prev, char)=> char + prev)
-  return  str === reverse? true:false
+  // reverse the string and compare the output with the param
+  str = str.toLowerCase();
+  let previous = "";
+  for (let i = 0; i < str.length; i++) previous = str[i] + previous;
+  return str === previous ? true : false;
+
+  // Alternatively
+  //   str = str.toLowerCase()
+  //   reverse = str.split("").reduce((prev, char)=> char + prev)
+  //   return  str === reverse? true:false
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______

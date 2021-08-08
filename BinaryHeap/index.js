@@ -2,12 +2,109 @@
 // For bubbleUp you can find parent index by doing Math.floor((idx - 1) / 2);
 // For sinkDown you can find child indexes with (idx * 2 + 1) (idx * 2 + 2)
 // Extra hint have insert and extractMax call bubbleUp and sinkDown respectively
-class BinaryHeap {
-  constructor() {
-    this.values = [];
-  }
+// class BinaryHeap {
+//   // https://eloquentjavascript.net/1st_edition/appendix2.html
+//   // https://learnersbucket.com/tutorials/array/heap-data-structure-in-javascript/
+//   constructor() {
+//     this.values = [];
+//   }
+// }
+
+function BinaryHeap() {
+  let list = [];
+
+  //Heapify
+  this.maxHeapify = (arr, n, i) => {
+    let largest = i;
+    let l = 2 * i + 1; //left child index
+    let r = 2 * i + 2; //right child index
+
+    //If left child is smaller than root
+    if (l < n && arr[l] > arr[largest]) {
+      largest = l;
+    }
+
+    // If right child is smaller than smallest so far
+    if (r < n && arr[r] > arr[largest]) {
+      largest = r;
+    }
+
+    // If smallest is not root
+    if (largest != i) {
+      let temp = arr[i];
+      arr[i] = arr[largest];
+      arr[largest] = temp;
+
+      // Recursively heapify the affected sub-tree
+      this.maxHeapify(arr, n, largest);
+    }
+  };
+
+  //Insert Value
+  this.insert = (num) => {
+    const size = list.length;
+
+    if (size === 0) {
+      list.push(num);
+    } else {
+      list.push(num);
+
+      //Heapify
+      for (let i = parseInt(list.length / 2 - 1); i >= 0; i--) {
+        this.maxHeapify(list, list.length, i);
+      }
+    }
+  };
+
+  //Remove value
+  this.delete = (num) => {
+    const size = list.length;
+
+    //Get the index of the number to be removed
+    let i;
+    for (i = 0; i < size; i++) {
+      if (list[i] === num) {
+        break;
+      }
+    }
+
+    //Swap the number with last element
+    [list[i], list[size - 1]] = [list[size - 1], list[i]];
+
+    //Remove the last element
+    list.splice(size - 1);
+
+    //Heapify the list again
+    for (let i = parseInt(list.length / 2 - 1); i >= 0; i--) {
+      this.maxHeapify(list, list.length, i);
+    }
+  };
+
+  //Return max value
+  this.findMax = () => list[0];
+
+  //Remove max val
+  this.deleteMax = () => this.delete(list[0]);
+
+  //Remove and return max value
+  this.extractMax = () => {
+    const max = list[0];
+    this.delete(max);
+    return max;
+  };
+
+  //Size
+  this.size = () => list.length;
+
+  //IsEmpty
+  this.isEmpty = () => list.length === 0;
+
+  //Return head
+  this.getList = () => list;
 }
 
+const BH = new BinaryHeap();
+console.log(BH.insert(3));
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/

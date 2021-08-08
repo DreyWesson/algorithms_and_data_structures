@@ -1,6 +1,12 @@
 // Implement classes Node and Linked List
 
 class Node {
+  // Helpful sites
+  // https://satishnaikawadi.me/posts/build-a-linked-list-in-javascript
+  // https://www.geeksforgeeks.org/implementation-linkedlist-javascript/
+  // https://codeburst.io/linked-lists-in-javascript-es6-code-part-1-6dd349c3dcc3
+  // https://medium.com/swlh/how-to-create-a-linked-list-in-javascript-1bfef32c7722
+  // https://flaviocopes.com/javascript-data-structures-linked-lists/
   constructor(data, nextPointer) {
     this.data = data;
     this.nextPointer = nextPointer;
@@ -63,6 +69,7 @@ class LinkedList {
     this.length++;
   }
   get(index) {
+    // Time complexity O(N)
     let counter = 0;
     let current = this.head;
 
@@ -82,6 +89,7 @@ class LinkedList {
     return true;
   }
   remove(index) {
+    // Time complexity O(N)
     if (!this.get(index)) return false;
 
     if (index === 0) return this.shift();
@@ -94,6 +102,7 @@ class LinkedList {
     return nodeToRemove;
   }
   insert(index, data) {
+    // Time complexity O(N)
     //     handle edge cases
     if (index >= this.length || index < 0) return false;
     if (index === 0) {

@@ -1,24 +1,27 @@
-function maxWordOccurrence(str) {
-	// TIME COMPLEXITY: O(N). bcos we went over every char of str
-	// SPACE COMPLEXITY: O(1). bcos length of str remains d same
-	str = str.toLowerCase();
-	let max = 0, longestWord = "";
+function mostUsedWord(str) {
+  // TIME COMPLEXITY: O(N). bcos we went over every char of str
+  // SPACE COMPLEXITY: O(1). bcos length of str remains d same
+  str = str.toLowerCase();
+  let max = 0,
+    mostRecurrentWord = "";
 
-	// console.log(str.replace(/[\W_]+/g," ").split(" "));
+  // console.log(str.replace(/[\W_]+/g," ").split(" "));
 
-	str.replace(/[\W_]+/g," ").split(" ").forEach((word) => {
-		// pick a char and memoize the # of occurrences
-		// only call it again when another char exceeds its # occurrence
-		if (str.split(word).length > max) {
-		max = str.split(word).length - 1;
-		longestWord = word;
-		}
-	});
-	// console.log({[longestWord]: { "# of occurrence": max }})
-	return  longestWord
+  str
+    .replace(/[\W_]+/g, " ")
+    .split(" ")
+    .forEach((word) => {
+      // pick a char and memoize the # of occurrences
+      // only call it again when another char exceeds its # occurrence
+      wordLength = str.split(word).length;
+      if (wordLength > max) {
+        max = wordLength - 1;
+        mostRecurrentWord = word;
+      }
+    });
+  // console.log({[longestWord]: { "# of occurrence": max }})
+  return mostRecurrentWord;
 }
-
-
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
@@ -46,12 +49,15 @@ function maxWordOccurrence(str) {
 mocha.setup("bdd");
 const { assert } = chai;
 
-describe("maxWordOccurrence()", () => {
-  it("maxWordOccurrence() finds the most frequently used word", () => {
+describe("mostUsedWord()", () => {
+  it("mostUsedWord() finds the most frequently used word", () => {
     // assert.equal(maxChar("a"), "a");
     // assert.equal(maxChar("test"), "t");
-    assert.equal(maxWordOccurrence("I loveeeeee noodles, noodles loves me"), "noodles");
-    assert.equal(maxWordOccurrence("The shadow of the moon"), "the");
+    assert.equal(
+      mostUsedWord("I loveeeeee noodles, noodles loves me"),
+      "noodles"
+    );
+    assert.equal(mostUsedWord("The shadow of the moon"), "the");
   });
 });
 

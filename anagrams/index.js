@@ -11,43 +11,46 @@
 function anagrams(stringA, stringB) {
   // Time complexity O(N+M)
   // Space complexity O(N+M)
+
+  // sanitize string using regex
   stringA = stringA.toLowerCase().replace(/[\W_]+/g, "");
   stringB = stringB.toLowerCase().replace(/[\W_]+/g, "");
 
-  const stringACharHash = {};
-  if (stringA.length !== stringB.length) return false;
-
-  stringA
-    .split("")
-    .forEach((el) => (stringACharHash[el] = stringACharHash[el]++ || 1));
-  // stringB.split('').forEach(el => (!stringACharHash[el])? false : stringACharHash[el]--);
-
-  for (let i = 0; i < stringB.length; i++) {
-    const bChar = stringB[i];
-    // if a char of stringB !== stringA return false else decrement d char
-    return !stringACharHash[bChar] ? false : stringACharHash[bChar]--;
+  function createCharMap(str) {
+    // create a function to hash each char occurrences
+    let charHash = {};
+    for (let char of str) charHash[char] = charHash[char]++ || 1;
+    return charHash;
   }
-  return true;
+  if (stringA.length === stringB.length) {
+    let stringAMap = createCharMap(stringA);
+    let stringBMap = createCharMap(stringB);
+
+    // check if the number of char in the hash. if same, then its an anagram
+    for (let char in stringAMap)
+      if (stringAMap[char] !== stringBMap[char]) return false;
+    return true;
+  } else return false;
+
+  // stringA = stringA.toLowerCase().replace(/[\W_]+/g, "");
+  // stringB = stringB.toLowerCase().replace(/[\W_]+/g, "");
+
+  // const stringAHashTable = {};
+
+  // if (stringA.length !== stringB.length) return false;
+
+  // stringA
+  //   .split("")
+  //   .forEach((el) => (stringAHashTable[el] = stringAHashTable[el]++ || 1));
+  // // stringB.split('').forEach(el => (!stringACharHash[el])? false : stringACharHash[el]--);
+
+  // for (let i = 0; i < stringB.length; i++) {
+  //   const bChar = stringB[i];
+  //   // if a char of stringB !== stringA return false else decrement d char
+  //   return !stringAHashTable[bChar] ? false : stringAHashTable[bChar]--;
+  // }
+  // return true;
 }
-
-// Given an array of words ['cat', 'dog', 'tac', 'god', 'act'],
-// return an array with all the anagrams grouped together.
-// Makes sure the anagrams are unique
-var arr = ["cat", "dog", "tac", "god", "act"];
-var allAnagrams = function (arr) {
-  var anagrams = {};
-  arr.forEach(function (str) {
-    var recurse = function (ana, str) {
-      if (str === "") anagrams[ana] = 1;
-      for (var i = 0; i < str.length; i++)
-        recurse(ana + str[i], str.slice(0, i) + str.slice(i + 1));
-    };
-    recurse("", str);
-  });
-  return Object.keys(anagrams);
-};
-
-console.log(allAnagrams(arr));
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \

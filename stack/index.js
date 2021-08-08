@@ -9,7 +9,17 @@
 //   s.pop(); // returns 2
 
 class Stack {
-	constructor() {}
+  constructor() {
+    this.data = [];
+  }
+  push(val) {
+    //   Time complexity O(1)
+    this.data.push(val);
+  }
+  pop() {
+    //   Time complexity O(1)
+    return this.data.pop();
+  }
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -35,37 +45,37 @@ class Stack {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup('bdd');
+mocha.setup("bdd");
 const { assert } = chai;
 
-describe('Stack', () => {
-	it('push and pop methods exist', () => {
-		const s = new Stack();
-		s.push(1);
-		s.pop();
-	});
-	it('has FILO / LIFO behavior.', () => {
-		const browserHistory = new Stack();
-		browserHistory.push('www.youtube.com');
-		browserHistory.push('www.youtube.com/login/KodingKevin');
-		browserHistory.push('www.youtube.com/watch/cats');
-		browserHistory.push('www.youtube.com/watch/cats_meowing');
+describe("Stack", () => {
+  it("push and pop methods exist", () => {
+    const s = new Stack();
+    s.push(1);
+    s.pop();
+  });
+  it("has FILO / LIFO behavior.", () => {
+    const browserHistory = new Stack();
+    browserHistory.push("www.youtube.com");
+    browserHistory.push("www.youtube.com/login/KodingKevin");
+    browserHistory.push("www.youtube.com/watch/cats");
+    browserHistory.push("www.youtube.com/watch/cats_meowing");
 
-		//Pressing the back button on my browser
-		assert.equal(browserHistory.pop(), 'www.youtube.com/watch/cats_meowing');
+    //Pressing the back button on my browser
+    assert.equal(browserHistory.pop(), "www.youtube.com/watch/cats_meowing");
 
-		const s = new Stack();
-		s.push(1);
-		s.push(2);
-		s.push(3);
-		assert.equal(s.pop(), 3);
-		assert.equal(s.pop(), 2);
-		assert.equal(s.pop(), 1);
-	});
-	it('pop returns null/undefined for empty stack.', () => {
-		const browserHistory = new Stack();
-		assert.equal(browserHistory.pop(), null);
-	});
+    const s = new Stack();
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    assert.equal(s.pop(), 3);
+    assert.equal(s.pop(), 2);
+    assert.equal(s.pop(), 1);
+  });
+  it("pop returns null/undefined for empty stack.", () => {
+    const browserHistory = new Stack();
+    assert.equal(browserHistory.pop(), null);
+  });
 });
 
 mocha.run();

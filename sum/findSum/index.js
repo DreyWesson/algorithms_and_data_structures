@@ -2,6 +2,11 @@ function findSum(arr, weight) {
   // Time complexity O(N): All characters are looped. since the inner loop has a constant of 5 char
   // Space complexity O(N): constant because the number of alphabet is constant
 
+  // https://levelup.gitconnected.com/solving-the-two-sum-problem-in-javascript-three-ways-4d43067fcfc7
+  // https://levelup.gitconnected.com/how-to-solve-two-sum-in-javascript-d1ebd9dfd3d3
+  // https://typeofnan.dev/exploring-the-two-sum-interview-question-in-javascript/
+  // https://dev.to/eidorianavi/the-two-sum-problem-in-javascript-2gm7
+  // https://paulrohan.medium.com/solving-the-classic-two-sum-and-three-sum-problem-in-javascript-7d5d1d47db03
   let hashtable = {};
 
   for (let i = 0, arrLength = arr.length; i < arrLength; i++) {

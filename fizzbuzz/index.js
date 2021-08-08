@@ -12,7 +12,8 @@
 //   buzz
 
 function fizzBuzz(n) {
-    // TIME COMPLEXITY: O(N). bcos we went over every char of str
+  // TIME COMPLEXITY: O(N). bcos we went over every char of str
+  // console.log("Here");
   for (let i = 1; i <= n; i++) {
     if (i % 15 === 0) console.log("fizzbuzz");
     else if (i % 3 === 0) console.log("fizz");
@@ -21,6 +22,10 @@ function fizzBuzz(n) {
   }
 }
 
+const fizzyBuzzy = (num) => {
+  console.log();
+};
+fizzyBuzzy(12);
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/

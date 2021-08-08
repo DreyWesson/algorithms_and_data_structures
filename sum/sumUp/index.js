@@ -1,10 +1,10 @@
+// Sum up all the numbers lower than param
 function sumUp(n) {
-	// Time complexity O(1): All characters are looped. since the inner loop has a constant of 5 char
-	// Space complexity O(1): constant because the number of alphabet is constant
-	return (n / 2) * (n + 1)
-	
+  // Time complexity O(1): All characters are looped. since the inner loop has a constant of 5 char
+  // Space complexity O(1): constant because the number of alphabet is constant
+  return (n / 2) * (n + 1);
 }
-      
+
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/
@@ -32,12 +32,11 @@ mocha.setup("bdd");
 const { assert } = chai;
 
 describe("sumUp()", () => {
-it("gets the sum of input values", () => {
-      assert.equal(sumUp(4), 10);
-      assert.equal(sumUp(2), 3);
-      assert.equal(sumUp(100), 5050);
-});
+  it("gets the sum of input values", () => {
+    assert.equal(sumUp(4), 10);
+    assert.equal(sumUp(2), 3);
+    assert.equal(sumUp(100), 5050);
+  });
 });
 
 mocha.run();
-      

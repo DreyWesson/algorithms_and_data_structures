@@ -10,7 +10,7 @@
 
 function caesarCipher(str, shift, decrypt = false) {
   // Time complexity: O(N)
-  // Space complexity: O(N)
+  // Space complexity: O(1)
 
   // Encrypts or decrypts a given string using the Caesar cipher.
   // Use the modulo (%) operator and the ternary operator (?)
@@ -20,16 +20,20 @@ function caesarCipher(str, shift, decrypt = false) {
   // Use String.prototype.charCodeAt() and String.fromCharCode() to convert each letter appropriately, ignoring special characters, spaces etc.
   // Use Array.prototype.join() to combine all the letters into a string.
   // Pass true to the last parameter, decrypt, to decrypt an encrypted string.
-  const s = decrypt ? (26 - shift) % 26 : shift;
-  const n = s > 0 ? s : 26 + (s % 26);
+
+  const crypto = decrypt ? (26 - shift) % 26 : shift;
+  const n = crypto > 0 ? crypto : 26 + (crypto % 26);
   return [...str]
-    .map((l, i) => {
-      const c = str.charCodeAt(i);
-      if (c >= 65 && c <= 90)
-        return String.fromCharCode(((c - 65 + n) % 26) + 65);
-      if (c >= 97 && c <= 122)
-        return String.fromCharCode(((c - 97 + n) % 26) + 97);
-      return l;
+    .map((char, i) => {
+      //  Get char ASCII position
+      const ascii = str.charCodeAt(i);
+      // if letter is uppercase then add uppercase letters
+      if (ascii >= 65 && ascii <= 90)
+        return String.fromCharCode(((ascii - 65 + n) % 26) + 65);
+      //else add lowercase letters
+      if (ascii >= 97 && ascii <= 122)
+        return String.fromCharCode(((ascii - 97 + n) % 26) + 97);
+      return char;
     })
     .join("");
 
