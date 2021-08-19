@@ -18,7 +18,6 @@ function chunk(array, size) {
       : subArr.push(element);
     // console.log(Array.isArray(last));
   });
-  console.log(chunkArr);
   return chunkArr;
 
   // let chunkedArr = [];

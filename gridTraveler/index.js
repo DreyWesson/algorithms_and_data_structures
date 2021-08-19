@@ -1,29 +1,19 @@
-// Given an integer, return an integer with the digits
-// reversed.
-// --- Examples
-//   reverseInt(13) === 31
-//   reverseInt(404) === 404
-//   reverseInt(100) === 1
-//   reverseInt(-13) === -31
-//   reverseInt(-100) === -1
+// Assume you are a traveler on a 2D grid. You begin at top-left corner
+// and your destination is bottom right corner. You may only move down or right
+// In how many ways can you travel to the goal on a grid with dimensions m*n
+// Write a Fn `gridTraveler(m,n)` that calc this
 
-function reverseInt(num, hash = "") {
-  // TIME COMPLEXITY: O(logN). bcos if d input increase by one digit or
-  // a factor of 10 we only have to do one more operation
+function gridTraveler(m, n, memo = {}) {
+  // Time complexity O(m*n)
+  // Space complexity O(n+m)
+  let key = m + "," + n;
+  if (key in memo) return memo[key];
+  if (m === 1 && n === 1) return 1;
+  if (m === 0 || n === 0) return 0;
 
-  // convert number to string
-  // create a hash for previous value
-  // loop over and reverse the string
-  // add the sign by using Math.sign()
-  num = num.toString();
-  for (let i = 0; i < num.length; i++) hash = num[i] + hash;
-  return Math.sign(num) * parseInt(hash);
-
-  // let reversed = num
-  //   .toString()
-  //   .split("")
-  //   .reduce((output, char) => char + output);
-  // return Math.sign(n) * parseInt(reversed);
+  //   memo[key]
+  return (memo[key] =
+    gridTraveler(m - 1, n, memo) + gridTraveler(m, n - 1, memo));
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -52,19 +42,12 @@ function reverseInt(num, hash = "") {
 mocha.setup("bdd");
 const { assert } = chai;
 
-describe("Integer Reversal", () => {
-  it("reverseInt() works on positive numbers", () => {
-    assert.equal(reverseInt(3), 3);
-    assert.equal(reverseInt(13), 31);
-    assert.equal(reverseInt(100), 1);
-    assert.equal(reverseInt(1408), 8041);
-  });
-
-  it("reverseInt() works on negative numbers numbers", () => {
-    assert.equal(reverseInt(-3), -3);
-    assert.equal(reverseInt(-13), -31);
-    assert.equal(reverseInt(-100), -1);
-    assert.equal(reverseInt(-1408), -8041);
+describe("# of ways u can travel in a 2D grid", () => {
+  it("gridTraveler() works", () => {
+    assert.equal(gridTraveler(1, 1), 1);
+    assert.equal(gridTraveler(2, 3), 3);
+    assert.equal(gridTraveler(3, 2), 3);
+    assert.equal(gridTraveler(18, 18), 2333606220);
   });
 });
 

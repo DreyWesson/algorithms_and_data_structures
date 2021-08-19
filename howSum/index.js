@@ -1,29 +1,23 @@
-// Given an integer, return an integer with the digits
-// reversed.
-// --- Examples
-//   reverseInt(13) === 31
-//   reverseInt(404) === 404
-//   reverseInt(100) === 1
-//   reverseInt(-13) === -31
-//   reverseInt(-100) === -1
+// Write a Fn `howSum(targetSum, numbers)` that takes in a targetSum and
+// an array of numbers as arg. The Fn should return an arr containing
+// any combination of element that add up exactly the targetSum. if no
+// combination adds up to d targetSum, then return null
+// If there are multiple combination possible, you may return any single one
 
-function reverseInt(num, hash = "") {
-  // TIME COMPLEXITY: O(logN). bcos if d input increase by one digit or
-  // a factor of 10 we only have to do one more operation
+function howSum(targetSum, numbers, memo = {}) {
+  // Time complexity O(m*n^2)
+  // Space complexity O(m^2)
+  if (targetSum in memo) return memo[targetSum];
+  if (targetSum === 0) return [];
+  if (targetSum < 0) return null;
 
-  // convert number to string
-  // create a hash for previous value
-  // loop over and reverse the string
-  // add the sign by using Math.sign()
-  num = num.toString();
-  for (let i = 0; i < num.length; i++) hash = num[i] + hash;
-  return Math.sign(num) * parseInt(hash);
-
-  // let reversed = num
-  //   .toString()
-  //   .split("")
-  //   .reduce((output, char) => char + output);
-  // return Math.sign(n) * parseInt(reversed);
+  for (const num of numbers) {
+    const remainder = targetSum - num;
+    const remainderResult = howSum(remainder, numbers, memo);
+    if (remainderResult !== null)
+      return (memo[targetSum] = [...remainderResult, num]);
+  }
+  return (memo[targetSum] = null && null);
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -42,29 +36,20 @@ function reverseInt(num, hash = "") {
 //                             |____/ \___|_|\___/ \_/\_/
 //                         ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
-
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
-
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
 mocha.setup("bdd");
 const { assert } = chai;
 
-describe("Integer Reversal", () => {
-  it("reverseInt() works on positive numbers", () => {
-    assert.equal(reverseInt(3), 3);
-    assert.equal(reverseInt(13), 31);
-    assert.equal(reverseInt(100), 1);
-    assert.equal(reverseInt(1408), 8041);
-  });
-
-  it("reverseInt() works on negative numbers numbers", () => {
-    assert.equal(reverseInt(-3), -3);
-    assert.equal(reverseInt(-13), -31);
-    assert.equal(reverseInt(-100), -1);
-    assert.equal(reverseInt(-1408), -8041);
+describe("Returns arr of el that sums up to target val", () => {
+  it("howSum() works", () => {
+    assert.deepEqual(howSum(7, [2, 3]), [3, 2, 2]);
+    assert.deepEqual(howSum(7, [5, 3, 4, 7]), [4, 3]);
+    assert.deepEqual(howSum(7, [2, 4]), null);
+    assert.equal(howSum(300, [7, 14]), null);
   });
 });
 

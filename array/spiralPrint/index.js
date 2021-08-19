@@ -1,29 +1,30 @@
-// Given an integer, return an integer with the digits
-// reversed.
-// --- Examples
-//   reverseInt(13) === 31
-//   reverseInt(404) === 404
-//   reverseInt(100) === 1
-//   reverseInt(-13) === -31
-//   reverseInt(-100) === -1
+function spiralPrint(arr, retArray = [], topRow = 0) {
+  // Time Complexity: O(mn) Space Complexity: O(1)
+  // here, m is the number of rows, and n is the number of columns. each item in the matrix is visited only once.
+  topRow = nav = leftCol = 0;
+  let bottomRow = arr.length - 1,
+    rightCol = arr[0].length - 1;
 
-function reverseInt(num, hash = "") {
-  // TIME COMPLEXITY: O(logN). bcos if d input increase by one digit or
-  // a factor of 10 we only have to do one more operation
-
-  // convert number to string
-  // create a hash for previous value
-  // loop over and reverse the string
-  // add the sign by using Math.sign()
-  num = num.toString();
-  for (let i = 0; i < num.length; i++) hash = num[i] + hash;
-  return Math.sign(num) * parseInt(hash);
-
-  // let reversed = num
-  //   .toString()
-  //   .split("")
-  //   .reduce((output, char) => char + output);
-  // return Math.sign(n) * parseInt(reversed);
+  while (topRow <= bottomRow && leftCol <= rightCol)
+    if (nav === 0) {
+      for (let i = leftCol; i <= rightCol; i++) retArray.push(arr[topRow][i]);
+      topRow++;
+      nav = 1;
+    } else if (nav === 1) {
+      for (let i = topRow; i <= bottomRow; i++) retArray.push(arr[i][rightCol]);
+      rightCol--;
+      nav = 2;
+    } else if (nav === 2) {
+      for (let i = rightCol; i >= leftCol; i--)
+        retArray.push(arr[bottomRow][i]);
+      bottomRow--;
+      nav = 3;
+    } else if (nav === 3) {
+      for (let i = bottomRow; i >= topRow; i--) retArray.push(arr[i][leftCol]);
+      leftCol++;
+      nav = 0;
+    }
+  return retArray;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -50,21 +51,20 @@ function reverseInt(num, hash = "") {
 //                         |______|______|______|______|______|
 
 mocha.setup("bdd");
-const { assert } = chai;
+const { assert } = chai,
+  arr = [
+    [1, 2, 3, 4, 5],
+    [6, 7, 8, 9, 10],
+    [11, 12, 13, 14, 15],
+    [16, 17, 18, 19, 20],
+  ];
 
-describe("Integer Reversal", () => {
-  it("reverseInt() works on positive numbers", () => {
-    assert.equal(reverseInt(3), 3);
-    assert.equal(reverseInt(13), 31);
-    assert.equal(reverseInt(100), 1);
-    assert.equal(reverseInt(1408), 8041);
-  });
-
-  it("reverseInt() works on negative numbers numbers", () => {
-    assert.equal(reverseInt(-3), -3);
-    assert.equal(reverseInt(-13), -31);
-    assert.equal(reverseInt(-100), -1);
-    assert.equal(reverseInt(-1408), -8041);
+describe("Spiral print of arr - anticlockwise", () => {
+  it("spiralPrint() works", () => {
+    assert.deepEqual(
+      spiralPrint(arr),
+      [1, 2, 3, 4, 5, 10, 15, 20, 19, 18, 17, 16, 11, 6, 7, 8, 9, 14, 13, 12]
+    );
   });
 });
 

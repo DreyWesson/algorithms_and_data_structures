@@ -13,8 +13,8 @@ function anagrams(stringA, stringB) {
   // Space complexity O(N+M)
 
   // sanitize string using regex
-  stringA = stringA.toLowerCase().replace(/[\W_]+/g, "");
-  stringB = stringB.toLowerCase().replace(/[\W_]+/g, "");
+  stringA = stringA.toLowerCase().replace(/[\W_]+/gi, "");
+  stringB = stringB.toLowerCase().replace(/[\W_]+/gi, "");
 
   function createCharMap(str) {
     // create a function to hash each char occurrences

@@ -1,29 +1,20 @@
-// Given an integer, return an integer with the digits
-// reversed.
+// Directions
+// Return a string with the order of characters reversed
 // --- Examples
-//   reverseInt(13) === 31
-//   reverseInt(404) === 404
-//   reverseInt(100) === 1
-//   reverseInt(-13) === -31
-//   reverseInt(-100) === -1
+//   reverse('abcd') === 'dcba'
+//   reverse('Hello!') === '!olleH'
 
-function reverseInt(num, hash = "") {
-  // TIME COMPLEXITY: O(logN). bcos if d input increase by one digit or
-  // a factor of 10 we only have to do one more operation
-
-  // convert number to string
-  // create a hash for previous value
-  // loop over and reverse the string
-  // add the sign by using Math.sign()
-  num = num.toString();
-  for (let i = 0; i < num.length; i++) hash = num[i] + hash;
-  return Math.sign(num) * parseInt(hash);
-
-  // let reversed = num
-  //   .toString()
-  //   .split("")
-  //   .reduce((output, char) => char + output);
-  // return Math.sign(n) * parseInt(reversed);
+function fibonacci(num, a = 1, b = 0, memo = {}) {
+  while (num >= 1) {
+    // swap a -> b and b -> a+b using destructuring
+    [a, b] = [b, a + b];
+    num--;
+  }
+  return b;
+  // Using recursion
+  // if (num in memo) return memo[num];
+  // if (num <= 2) return 1;
+  // return (memo[num] = fibonacci(num - 1, memo) + fibonacci(num - 2, memo))
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -52,19 +43,11 @@ function reverseInt(num, hash = "") {
 mocha.setup("bdd");
 const { assert } = chai;
 
-describe("Integer Reversal", () => {
-  it("reverseInt() works on positive numbers", () => {
-    assert.equal(reverseInt(3), 3);
-    assert.equal(reverseInt(13), 31);
-    assert.equal(reverseInt(100), 1);
-    assert.equal(reverseInt(1408), 8041);
-  });
-
-  it("reverseInt() works on negative numbers numbers", () => {
-    assert.equal(reverseInt(-3), -3);
-    assert.equal(reverseInt(-13), -31);
-    assert.equal(reverseInt(-100), -1);
-    assert.equal(reverseInt(-1408), -8041);
+describe("Finds fibonacci value", () => {
+  it("fibonacci() works", () => {
+    assert.equal(fibonacci(7), 13);
+    assert.equal(fibonacci(50), 12586269025);
+    assert.equal(fibonacci(100), 354224848179262000000);
   });
 });
 

@@ -21,8 +21,11 @@ class LinkedList {
   //   the first value in a linkedlist is called head
   //   new value of head and previous head becomes the pointer
   unshift(data) {
+    // create a new node
     const newHead = new Node(data, this.head);
+    // increment list length
     this.length++;
+    // change head
     this.head = newHead;
   }
   getFirst() {
@@ -30,6 +33,7 @@ class LinkedList {
   }
   getLast() {
     let currentNode = this.head;
+    // when u come across a null pointer return it as the last Node
     while (currentNode && currentNode.nextPointer)
       currentNode = currentNode.nextPointer;
     return currentNode;
@@ -40,14 +44,17 @@ class LinkedList {
   }
   shift() {
     if (!this.head) return;
+    // decrement list
+    this.length--;
+    // swap head
     let oldHead = this.head;
     this.head = this.head.nextPointer;
-    this.length--;
     return oldHead;
   }
   pop() {
-    //   handles edge case of NULL.next
+    // if theres only one element unshift
     if (this.length === 1) return this.shift();
+    // list is empty
     if (!this.head) return;
 
     const tail = this.getLast();
@@ -57,15 +64,19 @@ class LinkedList {
     while (currentHead.nextPointer !== tail)
       currentHead = currentHead.nextPointer;
 
-    // Now let the last pointer be null and decrement the length of the list
+    // Now let the last pointer be null
     currentHead.nextPointer = null;
+    // and decrement the length of the list
     this.length--;
     return tail;
   }
   push(data) {
+    // if list is empty unshift()
     if (!this.head) return this.unshift(data);
     let tail = this.getLast();
+    // get the tail pointer to point to the new data and create null pointer
     tail.nextPointer = new Node(data, null);
+    // increment list length to reflect
     this.length++;
   }
   get(index) {
@@ -73,9 +84,10 @@ class LinkedList {
     let counter = 0;
     let current = this.head;
 
-    //     handle edge cases
+    // handle edge cases
     if (index >= this.length || index < 0) return null;
 
+    // while current still lesser than given index
     while (counter < index) {
       current = current.nextPointer;
       counter++;
@@ -109,8 +121,8 @@ class LinkedList {
       this.unshift(data);
       return true;
     }
-    let previousNode = this.get(index - 1);
-    let currentNode = this.get(index);
+    let previousNode = this.get(index - 1),
+      currentNode = this.get(index);
     previousNode.nextPointer = new Node(data, currentNode);
     this.length++;
     return true;

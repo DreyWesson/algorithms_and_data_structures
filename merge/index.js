@@ -8,30 +8,25 @@
 function merge(sortedArr1, sortedArr2) {
   // Time complexity O(N+M)
   // Space complexity O(N+M)
-  let pointerOne = 0,
-    pointerTwo = 0,
-    output = [];
-  function outputHandler(arr, pointer = "pointerOne") {
-    if (pointer === "pointerOne") {
-      output.push(arr[pointerOne]);
-      pointerOne++;
-    } else {
-      output.push(arr[pointerTwo]);
-      pointerTwo++;
-    }
+
+  let output = [],
+    pointer1 = 0,
+    pointer2 = 0,
+    arr1Len = sortedArr1.length,
+    arr2Len = sortedArr2.length;
+
+  function outputHandler(arr, pointer = "one") {
+    pointer === "one"
+      ? output.push(arr[pointer1]) && pointer1++
+      : output.push(arr[pointer2]) && pointer2++;
   }
 
-  while (pointerOne < sortedArr1.length && pointerTwo < sortedArr2.length) {
-    if (sortedArr1[pointerOne] < sortedArr2[pointerTwo])
-      outputHandler(sortedArr1);
-    else outputHandler(sortedArr2, "pointerTwo");
-  }
-
-  // Handle cases where the two arrays are not of equal length
-  while (pointerOne < sortedArr1.length) outputHandler(sortedArr1);
-
-  while (pointerTwo < sortedArr2.length)
-    outputHandler(sortedArr2, "pointerTwo");
+  while (pointer1 < arr1Len && pointer2 < arr2Len)
+    sortedArr1[pointer1] < sortedArr2[pointer2]
+      ? outputHandler(sortedArr1)
+      : outputHandler(sortedArr2, "two");
+  while (pointer1 < arr1Len) outputHandler(sortedArr1);
+  while (pointer2 < arr2Len) outputHandler(sortedArr2, "two");
 
   return output;
 }

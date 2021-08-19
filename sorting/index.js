@@ -1,8 +1,7 @@
 // Implement a swap helper function that we will use in both BS and SS
 function swap(arr, i, j) {
-  let temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
+  // swap using destructuring
+  return ([arr[i], arr[j]] = [arr[j], arr[i]]);
 }
 
 //bubbleSort works by having sorted data accumulate at end of array
@@ -11,8 +10,8 @@ function bubbleSort(arr) {
   // Space complexity O(1)
   for (let i = 0; i < arr.length; i++)
     for (let j = 0; j < arr.length - i; j++)
+      // if current char > next char swap()
       arr[j] > arr[j + 1] && swap(arr, j, j + 1);
-
   return arr;
 }
 
@@ -20,10 +19,10 @@ function bubbleSort(arr) {
 function selectionSort(arr) {
   // Time complexity O(N²)
   for (let i = 0; i < arr.length; i++) {
-    let swapIdx = i;
+    let swapIndex = i;
     for (let j = i + 1; j < arr.length; j++)
-      arr[j] < arr[swapIdx] && (swapIdx = j);
-    swap(arr, i, swapIdx);
+      arr[j] < arr[swapIndex] && (swapIndex = j);
+    swap(arr, i, swapIndex);
   }
   return arr;
 }

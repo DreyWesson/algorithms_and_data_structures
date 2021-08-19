@@ -3,81 +3,81 @@
 // stringPatternSearch("lollipop", "lol") --> 1
 // stringPatternSearch("lolol", "lol") --> 2
 
-function stringPatternSearch(text, pattern) {
+function stringPatternSearch(text, pattern, count = 0) {
   // https://medium.com/nerd-for-tech/naive-string-searching-algorithm-2d5fa07fdbcd
   // https://programmersought.com/article/89001680877/
 
   // Time complexity O(N*M)
+  // Space complexity : O(1).
 
-  let count = 0;
-  for (let i = 0; i < text.length; i++) {
+  for (let i = 0; i < text.length; i++)
     for (let j = 0; j < pattern.length; j++) {
       if (pattern[j] !== text[i + j]) break;
       if (j === pattern.length - 1) count++;
     }
-  }
+
   return count;
 }
 
-// KPM method
-/**
- * @see https://www.youtube.com/watch?v=GTJr8OvyEVQ
- * @param {string} word
- * @return {number[]}
- */
-function buildPatternTable(word) {
-  const patternTable = [0];
-  let prefixIndex = 0;
-  let suffixIndex = 1;
+// // KPM method
+// /**
+//  * @see https://www.youtube.com/watch?v=GTJr8OvyEVQ
+//  * @param {string} word
+//  * @return {number[]}
+//  */
+// function buildPatternTable(word) {
+//   const patternTable = [0];
+//   let prefixIndex = 0;
+//   let suffixIndex = 1;
 
-  while (suffixIndex < word.length) {
-    if (word[prefixIndex] === word[suffixIndex]) {
-      patternTable[suffixIndex] = prefixIndex + 1;
-      suffixIndex += 1;
-      prefixIndex += 1;
-    } else if (prefixIndex === 0) {
-      patternTable[suffixIndex] = 0;
-      suffixIndex += 1;
-    } else {
-      prefixIndex = patternTable[prefixIndex - 1];
-    }
-  }
+//   while (suffixIndex < word.length) {
+//     if (word[prefixIndex] === word[suffixIndex]) {
+//       patternTable[suffixIndex] = prefixIndex + 1;
+//       suffixIndex += 1;
+//       prefixIndex += 1;
+//     } else if (prefixIndex === 0) {
+//       patternTable[suffixIndex] = 0;
+//       suffixIndex += 1;
+//     } else {
+//       prefixIndex = patternTable[prefixIndex - 1];
+//     }
+//   }
 
-  return patternTable;
-}
+//   return patternTable;
+// }
 
-/**
- * @param {string} text
- * @param {string} word
- * @return {number}
- */
-function knuthMorrisPratt(text, word) {
-  if (word.length === 0) {
-    return 0;
-  }
+// /**
+//  * @param {string} text
+//  * @param {string} word
+//  * @return {number}
+//  */
+// function knuthMorrisPratt(text, word) {
+//   if (word.length === 0) {
+//     return 0;
+//   }
 
-  let textIndex = 0;
-  let wordIndex = 0;
+//   let textIndex = 0;
+//   let wordIndex = 0;
 
-  const patternTable = buildPatternTable(word);
+//   const patternTable = buildPatternTable(word);
 
-  while (textIndex < text.length) {
-    if (text[textIndex] === word[wordIndex]) {
-      // We've found a match.
-      if (wordIndex === word.length - 1) {
-        return textIndex - word.length + 1;
-      }
-      wordIndex += 1;
-      textIndex += 1;
-    } else if (wordIndex > 0) {
-      wordIndex = patternTable[wordIndex - 1];
-    } else {
-      wordIndex = 0;
-      textIndex += 1;
-    }
-  }
-  return -1;
-}
+//   while (textIndex < text.length) {
+//     if (text[textIndex] === word[wordIndex]) {
+//       // We've found a match.
+//       if (wordIndex === word.length - 1) {
+//         return textIndex - word.length + 1;
+//       }
+//       wordIndex += 1;
+//       textIndex += 1;
+//     } else if (wordIndex > 0) {
+//       wordIndex = patternTable[wordIndex - 1];
+//     } else {
+//       wordIndex = 0;
+//       textIndex += 1;
+//     }
+//   }
+//   return -1;
+// }
 var test = "potential";
 
 var string =
@@ -91,7 +91,7 @@ var string =
   "unit increments at most, we must have had m + i = n at some point in the past, and therefore either " +
   "way we would be done.";
 // console.log(string.split(" ")[425]);
-console.log(knuthMorrisPratt(string, test));
+// console.log(knuthMorrisPratt(string, test));
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \

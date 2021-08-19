@@ -1,29 +1,17 @@
-// Given an integer, return an integer with the digits
-// reversed.
-// --- Examples
-//   reverseInt(13) === 31
-//   reverseInt(404) === 404
-//   reverseInt(100) === 1
-//   reverseInt(-13) === -31
-//   reverseInt(-100) === -1
+function findSumEvenNumbers(num, n = 0) {
+  num % 2 === 0 ? (n = num / 2) : (n = (num - 1) / 2);
+  return n * n + n;
+}
 
-function reverseInt(num, hash = "") {
-  // TIME COMPLEXITY: O(logN). bcos if d input increase by one digit or
-  // a factor of 10 we only have to do one more operation
+function findSum(n, sum = 0) {
+  for (let i = 0; i <= n; i++) if (i % 2 === 0) sum += i;
+  return sum;
+}
 
-  // convert number to string
-  // create a hash for previous value
-  // loop over and reverse the string
-  // add the sign by using Math.sign()
-  num = num.toString();
-  for (let i = 0; i < num.length; i++) hash = num[i] + hash;
-  return Math.sign(num) * parseInt(hash);
-
-  // let reversed = num
-  //   .toString()
-  //   .split("")
-  //   .reduce((output, char) => char + output);
-  // return Math.sign(n) * parseInt(reversed);
+function sumEven(number) {
+  if (number === 0) return 0;
+  else if (number % 2 !== 0) return sumEven(number - 1);
+  return number + sumEven(number - 1);
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -42,29 +30,23 @@ function reverseInt(num, hash = "") {
 //                             |____/ \___|_|\___/ \_/\_/
 //                         ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
-
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
-
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
 mocha.setup("bdd");
 const { assert } = chai;
 
-describe("Integer Reversal", () => {
-  it("reverseInt() works on positive numbers", () => {
-    assert.equal(reverseInt(3), 3);
-    assert.equal(reverseInt(13), 31);
-    assert.equal(reverseInt(100), 1);
-    assert.equal(reverseInt(1408), 8041);
+describe("Returns sum of even num from n", () => {
+  it("findSumEvenNumbers() uses arithmetic logic", () => {
+    assert.equal(findSumEvenNumbers(10), 30);
   });
-
-  it("reverseInt() works on negative numbers numbers", () => {
-    assert.equal(reverseInt(-3), -3);
-    assert.equal(reverseInt(-13), -31);
-    assert.equal(reverseInt(-100), -1);
-    assert.equal(reverseInt(-1408), -8041);
+  it("findSum() uses iterative logic", () => {
+    assert.equal(findSum(10), 30);
+  });
+  it("sumEven() uses recursive logic", () => {
+    assert.equal(sumEven(10), 30);
   });
 });
 

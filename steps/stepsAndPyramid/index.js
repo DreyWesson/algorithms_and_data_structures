@@ -19,16 +19,16 @@
 function steps(n) {
   // Time complexity is O(N²): outer&inner loop runs N times
   // let lowest level === 1
+
   for (let i = 1; i <= n; i++) {
     let step = "";
-      // for every loop add 1 more #
-      step += "#".repeat(i)
-      // for every loop remove 1 " "
-      step += " ".repeat(n-i)
-      console.log(step)
+    // for every loop  increment steps by adding 1 more #
+    step += "#".repeat(i);
+    // for every loop decrement space by removing 1 " "
+    step += " ".repeat(n - i);
+    console.log(step);
   }
 }
-
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/

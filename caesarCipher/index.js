@@ -1,3 +1,4 @@
+// Encrypts or decrypts a given string using the Caesar cipher.
 // Given a phrase, substitute each character by shifting it up
 // the alphabet by a given integer. If necessary, the shifting
 // should wrap around back to the beginning of the alphabet.
@@ -8,31 +9,23 @@
 // caeserCipher("abcd", 100) === "wxyz";
 // caeserCipher("gurer ner 9 qbtf!", 13) === "there are 9 dogs!"
 
-function caesarCipher(str, shift, decrypt = false) {
+function caesarCipher(str, key) {
   // Time complexity: O(N)
   // Space complexity: O(1)
 
-  // Encrypts or decrypts a given string using the Caesar cipher.
-  // Use the modulo (%) operator and the ternary operator (?)
-  // to calculate the correct encryption/decryption key.
-  // Use the spread operator (...) and Array.prototype.map() to iterate
-  // over the letters of the given string.
-  // Use String.prototype.charCodeAt() and String.fromCharCode() to convert each letter appropriately, ignoring special characters, spaces etc.
-  // Use Array.prototype.join() to combine all the letters into a string.
-  // Pass true to the last parameter, decrypt, to decrypt an encrypted string.
+  // const crypto = decrypt ? (26 - shift) % 26 : shift;
+  // const n = crypto > 0 ? crypto : 26 + (crypto % 26);
 
-  const crypto = decrypt ? (26 - shift) % 26 : shift;
-  const n = crypto > 0 ? crypto : 26 + (crypto % 26);
   return [...str]
     .map((char, i) => {
-      //  Get char ASCII position
+      //  get ASCII value of char @ position (i)
       const ascii = str.charCodeAt(i);
       // if letter is uppercase then add uppercase letters
       if (ascii >= 65 && ascii <= 90)
-        return String.fromCharCode(((ascii - 65 + n) % 26) + 65);
+        return String.fromCharCode(((ascii - 65 + key) % 26) + 65);
       //else add lowercase letters
       if (ascii >= 97 && ascii <= 122)
-        return String.fromCharCode(((ascii - 97 + n) % 26) + 97);
+        return String.fromCharCode(((ascii - 97 + key) % 26) + 97);
       return char;
     })
     .join("");
@@ -79,7 +72,7 @@ mocha.setup("bdd");
 const { assert } = chai;
 
 describe("caesarCipher()", () => {
-  it("shifts letters correctly.", () => {
+  it("decrypts correctly.", () => {
     assert.equal(caesarCipher("abcd", 1), "bcde");
     assert.equal(caesarCipher("yz", 1), "za");
     assert.equal(caesarCipher("abcd", 100), "wxyz");

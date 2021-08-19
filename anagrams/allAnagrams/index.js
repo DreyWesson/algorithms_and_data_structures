@@ -2,10 +2,10 @@
 // return an array with all the anagrams grouped together.
 // Makes sure the anagrams are unique
 var arr = ["cat", "dog", "tac", "god", "act"];
-function allAnagrams(arr) {
-  var anagrams = {};
+function allAnagrams(arr, anagrams = {}) {
+  if (typeof arr === "string") arr = arr.split(" ");
   arr.forEach(function (str) {
-    var recurse = function (ana, str) {
+    let recurse = (ana, str) => {
       if (str === "") anagrams[ana] = 1;
       for (var i = 0; i < str.length; i++)
         recurse(ana + str[i], str.slice(0, i) + str.slice(i + 1));
@@ -15,7 +15,28 @@ function allAnagrams(arr) {
   return Object.keys(anagrams);
 }
 
-console.log(allAnagrams(arr));
+console.log(allAnagrams("seat"));
+
+function swap(strArr, index1, index2) {
+  return ([strArr[index1], strArr[index2]] = [strArr[index2], strArr[index1]]);
+}
+function permute(strArr, begin, end) {
+  // Time Complexity: O(n!)
+  // Space Complexity: O(n!)
+  // there are n! permutations, and it creates n! call stacks.
+  if (begin == end) console.log(strArr);
+  else {
+    for (var i = begin; i < end + 1; i++) {
+      swap(strArr, begin, i);
+      permute(strArr, begin + 1, end);
+      swap(strArr, begin, i);
+    }
+  }
+}
+function permuteArray(strArr) {
+  permute(strArr, 0, strArr.length - 1);
+}
+console.log(permuteArray(["A", "C", "D"]));
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
@@ -44,24 +65,49 @@ mocha.setup("bdd");
 const { assert } = chai;
 
 describe("Anagrams", () => {
-  it("works if case sensitivity and non word characters NOT taken into account", () => {
-    assert.equal(anagrams("earth", "heart"), true);
-
-    assert.equal(anagrams("love", "meow"), false);
-    assert.equal(anagrams("lol", "lolc"), false);
+  it("shows all possible anagrams of an array", () => {
+    assert.deepEqual(allAnagrams(arr), [
+      "cat",
+      "cta",
+      "act",
+      "atc",
+      "tca",
+      "tac",
+      "dog",
+      "dgo",
+      "odg",
+      "ogd",
+      "gdo",
+      "god",
+    ]);
   });
-  it("is case insensitive. 'HEART' and 'earth' should return true", () => {
-    assert.equal(anagrams("HEART", "earth"), true);
-    assert.equal(anagrams("heart", "EARTH"), true);
-
-    assert.equal(anagrams("love", "meow"), false);
-    assert.equal(anagrams("lol", "lolc"), false);
-  });
-  it("only matches word characters. 'heart!'' and '' earth' should return true", () => {
-    assert.equal(anagrams("heart!", " earth"), true);
-
-    assert.equal(anagrams("love", "meow"), false);
-    assert.equal(anagrams("lol", "lolc"), false);
+  it("shows all possible anagrams of a string", () => {
+    assert.deepEqual(allAnagrams("seat"), [
+      "seat",
+      "seta",
+      "saet",
+      "sate",
+      "stea",
+      "stae",
+      "esat",
+      "esta",
+      "east",
+      "eats",
+      "etsa",
+      "etas",
+      "aset",
+      "aste",
+      "aest",
+      "aets",
+      "atse",
+      "ates",
+      "tsea",
+      "tsae",
+      "tesa",
+      "teas",
+      "tase",
+      "taes",
+    ]);
   });
 });
 

@@ -25,6 +25,17 @@ function palindrome(str) {
   //   return  str === reverse? true:false
 }
 
+function isPalindromeRecursive(word) {
+  word = word.toLowerCase();
+  function isPalindromeHelper(word, beginPos, endPos) {
+    if (beginPos >= endPos) return true;
+    if (word.charAt(beginPos) != word.charAt(endPos)) return false;
+    else return isPalindromeHelper(word, beginPos + 1, endPos - 1);
+  }
+  return isPalindromeHelper(word, 0, word.length - 1);
+}
+console.log(isPalindromeRecursive("Anna"));
+
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/
@@ -72,6 +83,9 @@ describe("Palindrome", () => {
   });
   it("is case insensitive.", () => {
     assert.equal(palindrome("Trunk knurt"), true);
+  });
+  it("recursive implementation", () => {
+    assert.equal(isPalindromeRecursive("anna"), true);
   });
 });
 

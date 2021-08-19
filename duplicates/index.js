@@ -1,9 +1,28 @@
-function removeDuplicates(arr) {
-  if (!(Array.isArray(arr) || typeof arr === "string"))
-    return "Arrays or Strings";
-  arr = typeof arr === "string" ? arr.split("") : arr;
-  return [...new Set(arr)];
+// function removeDuplicates(...arr) {
+
+//   let jointArray = [];
+//   arr.forEach((array) => (jointArray = [...jointArray, ...array]));
+//   return jointArray.filter((item, index) => jointArray.indexOf(item) === index);
+
+//   // return [...new Set(arr)];
+// }
+
+function removeDuplicates(arrays) {
+  // if (!(Array.isArray(arrays) || typeof arrays === "string")) return;
+  const unique = [];
+  const hashMap = {};
+  for (let i = 0; i < arrays.length; i++) {
+    // if value does not exist in hashMap push it in
+    !hashMap[arrays[i]] && unique.push(arrays[i]);
+    hashMap[arrays[i]] = true;
+  }
+  return unique;
+
+  // let jointArr = [];
+  // arrays.forEach((arr) => (jointArr = [...jointArr, ...arr]));
+  // return jointArr.filter((item, i) => jointArr.indexOf(item) === i);
 }
+
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/
@@ -35,10 +54,13 @@ describe("removeDuplicates()", () => {
     assert.deepEqual(removeDuplicates("daree"), ["d", "a", "r", "e"]);
   });
   it("removes duplicates in an arr.", () => {
-    assert.deepEqual(removeDuplicates(["Hello", "world", "world"]), [
-      "Hello",
-      "world",
-    ]);
+    assert.deepEqual(
+      removeDuplicates(
+        ["Hello", "world", "world"],
+        ["Hello", "world", "world"]
+      ),
+      ["Hello", "world"]
+    );
   });
 });
 

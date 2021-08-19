@@ -4,28 +4,30 @@
 
 const binarySearch = (sortedArr, value) => {
   // TIME COMPLEXITY: O(logN). bcos we went over every char of str
-  
   // using While loop
   // let start = 0,
   //   end = sortedArr.length - 1;
   // while (start <= end) {
   //   let middle = (start + (end - start) / 2) | 0;
-  //   if (sortedArr[middle] === value) return middle
+  //   if (sortedArr[middle] === value) return middle;
   //   else if (value < sortedArr[middle]) end = middle - 1;
   //   else start = middle + 1;
   // }
-  // return -1
+  // return -1;
 
   // using Recursion
-  function recursiveBinarySearch(sortedArr, value, start, end) {
+  function usingRecursion(sortedArr, val, start, end) {
     if (start > end) return -1;
-    var middle = (start + (end - start) / 2) | 0;
-    if (sortedArr[middle] === value) return middle;
-    else if (value < sortedArr[middle]) return recursiveBinarySearch(sortedArr, value, start, middle - 1);
-    else return recursiveBinarySearch(sortedArr, value, middle + 1, end);
-  }
-  return recursiveBinarySearch(sortedArr, value, 0, sortedArr.length);
+    let mid = (start + (end - start) / 2) | 0;
 
+    while (start <= end) {
+      if (sortedArr[mid] === val) return mid;
+      else if (sortedArr[mid] > val)
+        return usingRecursion(sortedArr, val, start, mid - 1);
+      else return usingRecursion(sortedArr, val, mid + 1, end);
+    }
+  }
+  return usingRecursion(sortedArr, value, 0, sortedArr.length);
 };
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______

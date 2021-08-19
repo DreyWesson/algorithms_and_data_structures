@@ -1,30 +1,41 @@
-// Given an integer, return an integer with the digits
-// reversed.
-// --- Examples
-//   reverseInt(13) === 31
-//   reverseInt(404) === 404
-//   reverseInt(100) === 1
-//   reverseInt(-13) === -31
-//   reverseInt(-100) === -1
+// https://dev.to/alisabaj/solving-pascal-s-triangle-in-javascript-4e59
 
-function reverseInt(num, hash = "") {
-  // TIME COMPLEXITY: O(logN). bcos if d input increase by one digit or
-  // a factor of 10 we only have to do one more operation
+function pascals(numRows, triangle = []) {
+  //   if (numRows === 0) return [];
+  //   if (numRows === 1) return [[1]];
 
-  // convert number to string
-  // create a hash for previous value
-  // loop over and reverse the string
-  // add the sign by using Math.sign()
-  num = num.toString();
-  for (let i = 0; i < num.length; i++) hash = num[i] + hash;
-  return Math.sign(num) * parseInt(hash);
+  for (let row = 1; row <= numRows; row++) {
+    let arr = [];
+    for (let col = 0; col < row; col++)
+      if (col === 0 || col === row - 1) arr.push(1);
+      else arr.push(triangle[row - 2][col - 1] + triangle[row - 2][col]);
+    triangle.push(arr);
+  }
+  return triangle;
 
-  // let reversed = num
-  //   .toString()
-  //   .split("")
-  //   .reduce((output, char) => char + output);
-  // return Math.sign(n) * parseInt(reversed);
+  // RECURSION
+  //   if (col == 0) return 1;
+  //   else if (row == 0) return 0;
+  //   else return pascalTriangle(row - 1, col) + pascalTriangle(row - 1, col - 1);
 }
+
+console.log(pascals(6));
+
+function triangle(number, string = "") {
+  function pascal(row, column) {
+    if (column > row) return 0;
+    if (column <= 1 || row <= 1) return 1;
+    return pascal(row - 1, column) + pascal(row - 1, column - 1);
+  }
+  for (let row = 1; row <= number; row++) {
+    for (let column = 1; column <= row; column++) {
+      string += `${pascal(row, column)} `;
+    }
+    string += "\n";
+  }
+  console.log(string);
+}
+triangle(6);
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
@@ -49,23 +60,15 @@ function reverseInt(num, hash = "") {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
-const { assert } = chai;
+// mocha.setup("bdd");
+// const { assert } = chai;
 
-describe("Integer Reversal", () => {
-  it("reverseInt() works on positive numbers", () => {
-    assert.equal(reverseInt(3), 3);
-    assert.equal(reverseInt(13), 31);
-    assert.equal(reverseInt(100), 1);
-    assert.equal(reverseInt(1408), 8041);
-  });
+// describe("isPrime()", () => {
+//   it("checks if a numRows is prime number or not", () => {
+//     assert.equal(primeFactor(7), true);
+//     assert.equal(primeFactor(4), false);
+//     assert.equal(primeFactor(97), true);
+//   });
+// });
 
-  it("reverseInt() works on negative numbers numbers", () => {
-    assert.equal(reverseInt(-3), -3);
-    assert.equal(reverseInt(-13), -31);
-    assert.equal(reverseInt(-100), -1);
-    assert.equal(reverseInt(-1408), -8041);
-  });
-});
-
-mocha.run();
+// mocha.run();

@@ -10,13 +10,18 @@
 function vowels(str) {
   // Time complexity O(N): All characters are looped. since the inner loop has a constant of 5 char
   // Space complexity O(1): constant because the number of alphabet is constant
-  const vowels ="aeiou".split("");
-  let count = 0;
 
-  str.toLowerCase().split("").forEach(char => 
-    vowels.forEach(element => char === element && count++)
-  );
-  return count
+  // https://scotch.io/courses/the-ultimate-guide-to-javascript-algorithms/counting-the-vowels-in-a-string-of-text
+  let matchingInstances = str.match(/[aeiou]/gi);
+  return matchingInstances ? matchingInstances.length : 0;
+
+  // str
+  //   .toLowerCase()
+  //   .split("")
+  //   .forEach((char) =>
+  //     vowels.forEach((element) => char === element && count++)
+  //   );
+  // return count;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
